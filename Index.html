@@ -3,66 +3,93 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Giga.pub Offers</title>
+  <title>Reward Unlock</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f8f8f8;
+      background: #f0f0f0;
       padding: 20px;
-    }
-    h2 {
       text-align: center;
-      color: #333;
     }
-    .offer {
-      background: white;
-      padding: 15px;
-      margin-bottom: 15px;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+
+    h2 {
+      color: #222;
     }
-    .offer-title {
-      font-size: 18px;
-      margin-bottom: 10px;
-    }
-    .offer-btn {
-      padding: 10px 15px;
-      background-color: #2a9d8f;
+
+    button {
+      padding: 12px 25px;
+      font-size: 16px;
+      background-color: #28a745;
       color: white;
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      margin-top: 20px;
     }
-    .offer-btn:hover {
-      background-color: #21867a;
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    /* Interstitial Screen */
+    #interstitial {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: white;
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 6px solid #ccc;
+      border-top: 6px solid #28a745;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    #message {
+      font-size: 18px;
+      color: #333;
     }
   </style>
 </head>
 <body>
-  <h2>🔥 Giga.pub Hot Offers</h2>
+  <h2>🎁 Unlock Your Daily Bonus</h2>
+  <p>Click below to continue</p>
+  <button onclick="showInterstitial()">Unlock Reward</button>
 
-  <div class="offer">
-    <div class="offer-title">📱 Get Free iPhone</div>
-    <button class="offer-btn" onclick="goToOffer('https://giga.pub/your-affiliate-link-1')">Claim Now</button>
-  </div>
-
-  <div class="offer">
-    <div class="offer-title">💰 Win $500 Instantly</div>
-    <button class="offer-btn" onclick="goToOffer('https://giga.pub/your-affiliate-link-2')">Join Offer</button>
-  </div>
-
-  <div class="offer">
-    <div class="offer-title">🎁 Free Gift Card</div>
-    <button class="offer-btn" onclick="goToOffer('https://giga.pub/your-affiliate-link-3')">Get It</button>
+  <!-- Interstitial Overlay -->
+  <div id="interstitial">
+    <div class="spinner"></div>
+    <div id="message">Loading Reward... Please wait</div>
   </div>
 
   <script>
     const tg = window.Telegram.WebApp;
     tg.expand();
 
-    function goToOffer(url) {
-      window.location.href = url;
+    function showInterstitial() {
+      document.getElementById('interstitial').style.display = 'flex';
+
+      // Simulate delay before redirect
+      setTimeout(() => {
+        // Monetag Interstitial or Direct Link
+        window.location.href = "https://your-monetag-link.com"; // Replace with your real link
+      }, 4000); // 4 seconds delay
     }
   </script>
 </body>
