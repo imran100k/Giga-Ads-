@@ -1,95 +1,206 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Reward Unlock</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shohoj World Giga Pub</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f0f0f0;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #f4f4f4;
       padding: 20px;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: auto;
+    }
+
+    .header {
+      background-color: #0b815a;
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
       text-align: center;
     }
 
-    h2 {
-      color: #222;
+    .header h2 {
+      margin: 0;
     }
 
-    button {
-      padding: 12px 25px;
-      font-size: 16px;
-      background-color: #28a745;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
+    .header .amount {
+      font-size: 28px;
+      margin-top: 10px;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-between;
       margin-top: 20px;
     }
 
-    button:hover {
-      background-color: #218838;
+    .stat-box {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      flex: 0 0 48%;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      text-align: center;
     }
 
-    /* Interstitial Screen */
-    #interstitial {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: white;
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
+    .stat-box h3 {
+      margin: 0;
+      font-size: 16px;
     }
 
-    .spinner {
-      width: 50px;
-      height: 50px;
-      border: 6px solid #ccc;
-      border-top: 6px solid #28a745;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin-bottom: 20px;
+    .stat-box .value {
+      margin-top: 5px;
+      font-size: 20px;
+      color: #0b815a;
     }
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    .graph {
+      margin-top: 30px;
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
     }
 
-    #message {
-      font-size: 18px;
-      color: #333;
+    .graph h4 {
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      height: 100px;
+      margin-top: 10px;
+    }
+
+    .bar div {
+      width: 10%;
+      background-color: #0b815a;
+      border-radius: 5px 5px 0 0;
+      height: 0;
+      transition: height 0.5s;
+    }
+
+    .labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    .action {
+      margin-top: 30px;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+
+    .action button {
+      padding: 12px 20px;
+      background-color: #0b815a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .footer {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .footer button {
+      padding: 10px;
+      font-size: 14px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      flex: 1;
+      margin: 5px;
+    }
+
+    .reset {
+      background-color: #f44336;
+      color: white;
+    }
+
+    .developer {
+      background-color: #e0e0e0;
     }
   </style>
 </head>
 <body>
-  <h2>🎁 Unlock Your Daily Bonus</h2>
-  <p>Click below to continue</p>
-  <button onclick="showInterstitial()">Unlock Reward</button>
+  <div class="container">
+    <div class="header">
+      <h2>▶ Giga Pub</h2>
+      <div>আপনার মোট আয়</div>
+      <div class="amount">0.01 ৳</div>
+    </div>
 
-  <!-- Interstitial Overlay -->
-  <div id="interstitial">
-    <div class="spinner"></div>
-    <div id="message">Loading Reward... Please wait</div>
+    <div class="stats">
+      <div class="stat-box">
+        <h3>মোট বিজ্ঞাপন</h3>
+        <div class="value">1</div>
+      </div>
+      <div class="stat-box">
+        <h3>মোট আয়</h3>
+        <div class="value">0.01 ৳</div>
+      </div>
+    </div>
+
+    <div class="graph">
+      <h4>সাপ্তাহিক কার্যকলাপ</h4>
+      <div class="bar" id="barChart">
+        <div style="height: 0%"></div>
+        <div style="height: 0%"></div>
+        <div style="height: 0%"></div>
+        <div style="height: 0%"></div>
+        <div style="height: 0%"></div>
+        <div style="height: 0%"></div>
+        <div style="height: 80%"></div>
+      </div>
+      <div class="labels">
+        <span>শনি</span>
+        <span>রবি</span>
+        <span>সোম</span>
+        <span>মঙ্গল</span>
+        <span>বুধ</span>
+        <span>বৃহঃ</span>
+        <span>আজ</span>
+      </div>
+    </div>
+
+    <div class="action">
+      <p>আজকের কাজ: নিচের বাটনে ক্লিক করে বিজ্ঞাপন দেখুন এবং আয় করুন।</p>
+      <button onclick="watchAd()">▶ বিজ্ঞাপন দেখুন</button>
+    </div>
+
+    <div class="footer">
+      <button class="reset">↺ রিসেট</button>
+      <button class="developer">👨‍💻 ডেভেলপার</button>
+    </div>
   </div>
 
   <script>
     const tg = window.Telegram.WebApp;
     tg.expand();
 
-    function showInterstitial() {
-      document.getElementById('interstitial').style.display = 'flex';
-
-      // Simulate delay before redirect
-      setTimeout(() => {
-        // Monetag Interstitial or Direct Link
-        window.location.href = "https://your-monetag-link.com"; // Replace with your real link
-      }, 4000); // 4 seconds delay
+    function watchAd() {
+      // Replace this with your Monetag or Giga.pub link
+      window.location.href = "https://your-ad-link.com";
     }
   </script>
 </body>
