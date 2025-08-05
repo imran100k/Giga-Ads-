@@ -3,70 +3,65 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Telegram Mini App with Giga.pub</title>
+  <title>Simple Giga.pub Mini App</title>
 
   <!-- Telegram SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-  
-<script src="https://ad.gigapub.tech/script?id=1292"></script>
+  <!-- Giga.pub Script (আপনার আইডি বসান) -->
+  <script src="https://ad.gigapub.tech/script?id=1263" defer></script>
 
   <style>
     body {
       font-family: sans-serif;
-      background: #f2f2f2;
+      background-color: #f5f5f5;
       text-align: center;
       padding: 40px;
     }
 
-    h2 {
-      margin-bottom: 20px;
-    }
-
     button {
-      padding: 14px 28px;
-      font-size: 16px;
       background-color: #0088cc;
       color: white;
       border: none;
+      padding: 14px 28px;
+      font-size: 16px;
       border-radius: 8px;
       cursor: pointer;
+      margin-top: 20px;
     }
 
     button:hover {
-      background-color: #006fa1;
+      background-color: #006f99;
     }
   </style>
 </head>
 <body>
-  <h2>🎥 Watch Ad to Earn</h2>
-  <p id="status">Loading...</p>
-
-  <button onclick="showAd()">🎬 Watch Ad</button>
+  <h2>🎬 Earn by Watching Ads</h2>
+  <p id="user">Loading user...</p>
+  <button onclick="showAd()">▶️ Watch Ad</button>
 
   <script>
-    // Telegram initialization
+    // Telegram WebApp Init
     const tg = window.Telegram.WebApp;
     tg.ready();
     tg.expand();
 
     const user = tg.initDataUnsafe?.user;
-    document.getElementById("status").innerText =
-      user ? `Hello, ${user.first_name}!` : "Welcome, Guest!";
+    document.getElementById("user").innerText =
+      user ? `Hi, ${user.first_name}` : "Welcome!";
 
-    // Show Giga Ad
+    // Show Ad Function
     function showAd() {
-      if (typeof window.showGiga === "function") {
+      if (typeof window.showGiga === 'function') {
         window.showGiga()
           .then(() => {
-            alert("✅ Ad complete! Reward granted.");
+            alert("✅ Ad watched! Reward earned.");
           })
-          .catch((err) => {
-            console.error("Ad Error:", err);
-            alert("❌ Ad failed to load.");
+          .catch(() => {
+            alert("❌ Ad failed or was skipped.");
           });
       } else {
-        alert("⚠️ Ad script not ready.");
+        alert("⚠️ Giga Ad not loaded yet.");
       }
     }
   </script>
