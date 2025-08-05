@@ -3,41 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Simple Giga.pub Mini App</title>
+  <title>Telegram Mini App with Giga.pub</title>
 
   <!-- Telegram SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-  <!-- Giga.pub Script (আপনার আইডি বসান) -->
-  <script src="https://ad.gigapub.tech/script?id=1263" defer></script>
+  <!-- Giga.pub Ad Script -->
+  <script src="https://ad.gigapub.tech/script?id=1292" defer></script>
 
   <style>
     body {
       font-family: sans-serif;
-      background-color: #f5f5f5;
       text-align: center;
+      background: #f0f0f0;
       padding: 40px;
     }
 
     button {
       background-color: #0088cc;
       color: white;
-      border: none;
       padding: 14px 28px;
-      font-size: 16px;
+      border: none;
       border-radius: 8px;
+      font-size: 16px;
       cursor: pointer;
       margin-top: 20px;
     }
 
     button:hover {
-      background-color: #006f99;
+      background-color: #0070a0;
     }
   </style>
 </head>
 <body>
-  <h2>🎬 Earn by Watching Ads</h2>
-  <p id="user">Loading user...</p>
+  <h2>🎬 Watch Ad &amp; Earn</h2>
+  <p id="status">Loading Telegram user...</p>
   <button onclick="showAd()">▶️ Watch Ad</button>
 
   <script>
@@ -47,21 +47,23 @@
     tg.expand();
 
     const user = tg.initDataUnsafe?.user;
-    document.getElementById("user").innerText =
-      user ? `Hi, ${user.first_name}` : "Welcome!";
+    document.getElementById("status").innerText = user
+      ? `Hi, ${user.first_name}!`
+      : "Welcome!";
 
-    // Show Ad Function
+    // Giga Ad Function
     function showAd() {
-      if (typeof window.showGiga === 'function') {
+      if (typeof window.showGiga === "function") {
         window.showGiga()
           .then(() => {
-            alert("✅ Ad watched! Reward earned.");
+            alert("✅ Ad finished! You earned a reward.");
           })
-          .catch(() => {
-            alert("❌ Ad failed or was skipped.");
+          .catch((err) => {
+            console.error("Ad error:", err);
+            alert("❌ Ad could not be shown.");
           });
       } else {
-        alert("⚠️ Giga Ad not loaded yet.");
+        alert("⚠️ Ad is not ready yet. Please wait a moment.");
       }
     }
   </script>
