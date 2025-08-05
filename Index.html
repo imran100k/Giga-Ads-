@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Telegram Mini App with Giga.pub</title>
+
+  <!-- Telegram SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <!-- Giga.pub Ad Script (replace YOUR_ID) -->
+  <script src="https://ad.gigapub.tech/script?id=1263" defer></script>
+
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f2f2f2;
+      text-align: center;
+      padding: 40px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 14px 28px;
+      font-size: 16px;
+      background-color: #0088cc;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #006fa1;
+    }
+  </style>
+</head>
+<body>
+  <h2>🎥 Watch Ad to Earn</h2>
+  <p id="status">Loading...</p>
+
+  <button onclick="showAd()">🎬 Watch Ad</button>
+
+  <script>
+    // Telegram initialization
+    const tg = window.Telegram.WebApp;
+    tg.ready();
+    tg.expand();
+
+    const user = tg.initDataUnsafe?.user;
+    document.getElementById("status").innerText =
+      user ? `Hello, ${user.first_name}!` : "Welcome, Guest!";
+
+    // Show Giga Ad
+    function showAd() {
+      if (typeof window.showGiga === "function") {
+        window.showGiga()
+          .then(() => {
+            alert("✅ Ad complete! Reward granted.");
+          })
+          .catch((err) => {
+            console.error("Ad Error:", err);
+            alert("❌ Ad failed to load.");
+          });
+      } else {
+        alert("⚠️ Ad script not ready.");
+      }
+    }
+  </script>
+</body>
+</html>
