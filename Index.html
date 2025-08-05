@@ -3,68 +3,66 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Telegram Mini App with Giga.pub</title>
-
-  <!-- Telegram SDK -->
+  <title>Giga.pub Offers</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
-  <!-- Giga.pub Ad Script -->
-  <script src="https://ad.gigapub.tech/script?id=1292" defer></script>
-
   <style>
     body {
-      font-family: sans-serif;
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+      padding: 20px;
+    }
+    h2 {
       text-align: center;
-      background: #f0f0f0;
-      padding: 40px;
+      color: #333;
     }
-
-    button {
-      background-color: #0088cc;
-      color: white;
-      padding: 14px 28px;
-      border: none;
+    .offer {
+      background: white;
+      padding: 15px;
+      margin-bottom: 15px;
       border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      margin-top: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
-
-    button:hover {
-      background-color: #0070a0;
+    .offer-title {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    .offer-btn {
+      padding: 10px 15px;
+      background-color: #2a9d8f;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .offer-btn:hover {
+      background-color: #21867a;
     }
   </style>
 </head>
 <body>
-  <h2>🎬 Watch Ad &amp; Earn</h2>
-  <p id="status">Loading Telegram user...</p>
-  <button onclick="showAd()">▶️ Watch Ad</button>
+  <h2>🔥 Giga.pub Hot Offers</h2>
+
+  <div class="offer">
+    <div class="offer-title">📱 Get Free iPhone</div>
+    <button class="offer-btn" onclick="goToOffer('https://giga.pub/your-affiliate-link-1')">Claim Now</button>
+  </div>
+
+  <div class="offer">
+    <div class="offer-title">💰 Win $500 Instantly</div>
+    <button class="offer-btn" onclick="goToOffer('https://giga.pub/your-affiliate-link-2')">Join Offer</button>
+  </div>
+
+  <div class="offer">
+    <div class="offer-title">🎁 Free Gift Card</div>
+    <button class="offer-btn" onclick="goToOffer('https://giga.pub/your-affiliate-link-3')">Get It</button>
+  </div>
 
   <script>
-    // Telegram WebApp Init
     const tg = window.Telegram.WebApp;
-    tg.ready();
     tg.expand();
 
-    const user = tg.initDataUnsafe?.user;
-    document.getElementById("status").innerText = user
-      ? `Hi, ${user.first_name}!`
-      : "Welcome!";
-
-    // Giga Ad Function
-    function showAd() {
-      if (typeof window.showGiga === "function") {
-        window.showGiga()
-          .then(() => {
-            alert("✅ Ad finished! You earned a reward.");
-          })
-          .catch((err) => {
-            console.error("Ad error:", err);
-            alert("❌ Ad could not be shown.");
-          });
-      } else {
-        alert("⚠️ Ad is not ready yet. Please wait a moment.");
-      }
+    function goToOffer(url) {
+      window.location.href = url;
     }
   </script>
 </body>
